@@ -34,6 +34,7 @@ public class WaterServiceStatisticService {
             statistics.setServiceName(waterService.getServiceName());
             statistics.setDescription(waterService.getDescription());
             statistics.setUnit(waterService.getUnit());
+            statistics.setPriceRates(waterService.getPriceRates());
             
             // Set statistics date range
             statistics.setFromDate(fromDate);
