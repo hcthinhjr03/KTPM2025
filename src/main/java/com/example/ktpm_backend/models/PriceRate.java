@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "price_rates")
 @Data
@@ -28,6 +30,7 @@ public class PriceRate {
     @Temporal(TemporalType.DATE)
     private Date expiryDate;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "service_id")
     private WaterService waterService;

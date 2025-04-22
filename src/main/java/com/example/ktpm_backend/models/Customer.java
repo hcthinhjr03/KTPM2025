@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "customers")
 @Data
@@ -23,9 +25,11 @@ public class Customer {
     private String email;
     private String address;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Apartment> apartments;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<Contract> contracts;
 }

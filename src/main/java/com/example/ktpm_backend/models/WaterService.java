@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "water_services")
 @Data
@@ -24,6 +26,7 @@ public class WaterService {
     @OneToMany(mappedBy = "waterService", cascade = CascadeType.ALL)
     private List<PriceRate> priceRates;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "waterService")
     private List<Contract> contracts;
     

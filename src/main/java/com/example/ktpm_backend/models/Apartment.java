@@ -2,6 +2,8 @@ package com.example.ktpm_backend.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class Apartment {
     private Double area;
     private String status;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL)
     private List<WaterReading> waterReadings;
     
@@ -38,6 +41,7 @@ public class Apartment {
     @JoinColumn(name = "customer_id")
     private Customer customer;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "apartment")
     private List<Contract> contracts;
 }

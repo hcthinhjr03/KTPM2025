@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "contracts")
 @Data
@@ -41,6 +43,7 @@ public class Contract {
     @JoinColumn(name = "customer_id")
     private Customer customer;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "contract")
     private List<Bill> bills;
 }

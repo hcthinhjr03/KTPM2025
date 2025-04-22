@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "water_readings")
 @Data
@@ -29,6 +31,7 @@ public class WaterReading {
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
     
+    @JsonIgnore
     @OneToOne(mappedBy = "waterReading")
     private Bill bill;
 }
