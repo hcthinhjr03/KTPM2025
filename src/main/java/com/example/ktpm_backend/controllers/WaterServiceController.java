@@ -1,15 +1,11 @@
 package com.example.ktpm_backend.controllers;
 
 import com.example.ktpm_backend.models.WaterService;
-import com.example.ktpm_backend.models.WaterServiceStatistics;
 import com.example.ktpm_backend.services.WaterServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,28 +68,4 @@ public class WaterServiceController {
         }
     }
 
-    // Get statistics for a specific water service
-    @GetMapping("/statistics/{id}")
-    public ResponseEntity<WaterServiceStatistics> getWaterServiceStatistics(
-            @PathVariable Integer id,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate) {
-        
-        Optional<WaterServiceStatistics> statistics = waterServiceService.getWaterServiceStatistics(id, fromDate, toDate);
-        if (statistics.isPresent()) {
-            return new ResponseEntity<>(statistics.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    // Get all water services with statistics
-    @GetMapping("/statistics")
-    public ResponseEntity<List<WaterServiceStatistics>> getAllWaterServiceStatistics(
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate) {
-        
-        List<WaterServiceStatistics> statisticsList = waterServiceService.getAllWaterServiceStatistics(fromDate, toDate);
-        return new ResponseEntity<>(statisticsList, HttpStatus.OK);
-    }
 }
