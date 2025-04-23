@@ -39,20 +39,6 @@ public class ApartmentController {
         return new ResponseEntity<>(apartments, HttpStatus.OK);
     }
 
-    // Lấy căn hộ theo trạng thái
-    @GetMapping("/status/{status}")
-    public ResponseEntity<List<Apartment>> getApartmentsByStatus(@PathVariable String status) {
-        List<Apartment> apartments = apartmentService.getApartmentsByStatus(status);
-        return new ResponseEntity<>(apartments, HttpStatus.OK);
-    }
-
-    // Lấy căn hộ theo tòa nhà
-    @GetMapping("/building/{building}")
-    public ResponseEntity<List<Apartment>> getApartmentsByBuilding(@PathVariable String building) {
-        List<Apartment> apartments = apartmentService.getApartmentsByBuilding(building);
-        return new ResponseEntity<>(apartments, HttpStatus.OK);
-    }
-
     // Tạo căn hộ mới
     @PostMapping
     public ResponseEntity<Apartment> createApartment(@RequestBody Apartment apartment) {

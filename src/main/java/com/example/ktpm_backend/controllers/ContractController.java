@@ -9,14 +9,12 @@ import com.example.ktpm_backend.services.CustomerService;
 import com.example.ktpm_backend.services.ApartmentService;
 import com.example.ktpm_backend.services.WaterServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -94,39 +92,6 @@ public class ContractController {
         return new ResponseEntity<>(newContract, HttpStatus.CREATED);
     }
     
-    // Tạo hợp đồng từ thông tin cơ bản
-    @PostMapping("/create-simple")
-    public ResponseEntity<?> createSimpleContract(
-            @RequestParam Integer customerId,
-            @RequestParam Integer apartmentId,
-            @RequestParam Integer waterServiceId,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        
-        Optional<Contract> contract = contractService.createContractWithDetails(
-                customerId, apartmentId, waterServiceId, 
-                startDate != null ? startDate : new Date(), endDate);
-        
-        return contract.map(value -> new ResponseEntity<>(value, HttpStatus.CREATED))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-    }
-
-    // Tạo hợp đồng với thông tin chi tiết
-    @PostMapping("/create-with-details")
-    public ResponseEntity<Contract> createContractWithDetails(
-            @RequestParam Integer customerId,
-            @RequestParam Integer apartmentId,
-            @RequestParam Integer waterServiceId,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        
-        Optional<Contract> contract = contractService.createContractWithDetails(
-                customerId, apartmentId, waterServiceId, startDate, endDate);
-        
-        return contract.map(value -> new ResponseEntity<>(value, HttpStatus.CREATED))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
-    }
-
     // Cập nhật hợp đồng
     @PutMapping("/{id}")
     public ResponseEntity<Contract> updateContract(
@@ -136,15 +101,6 @@ public class ContractController {
         Optional<Contract> updatedContract = contractService.updateContract(id, contractDetails);
         
         return updatedContract.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    // Chấm dứt hợp đồng
-    @PutMapping("/{id}/terminate")
-    public ResponseEntity<Contract> terminateContract(@PathVariable Integer id) {
-        Optional<Contract> terminatedContract = contractService.terminateContract(id);
-        
-        return terminatedContract.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -165,19 +121,5 @@ public class ContractController {
     public ResponseEntity<List<Contract>> getContractsByCustomer(@PathVariable Integer customerId) {
         List<Contract> contracts = contractService.getContractsByCustomer(customerId);
         return new ResponseEntity<>(contracts, HttpStatus.OK);
-    }
-
-    // Lấy hợp đồng còn hiệu lực
-    @GetMapping("/active")
-    public ResponseEntity<List<Contract>> getActiveContracts() {
-        List<Contract> contracts = contractService.getActiveContracts();
-        return new ResponseEntity<>(contracts, HttpStatus.OK);
-    }
-
-    // Kiểm tra căn hộ đã có hợp đồng hoạt động chưa
-    @GetMapping("/check-apartment/{apartmentId}")
-    public ResponseEntity<Map<String, Boolean>> checkApartmentContract(@PathVariable Integer apartmentId) {
-        boolean hasActiveContract = contractService.isApartmentHasActiveContract(apartmentId);
-        return new ResponseEntity<>(Map.of("hasActiveContract", hasActiveContract), HttpStatus.OK);
     }
 }

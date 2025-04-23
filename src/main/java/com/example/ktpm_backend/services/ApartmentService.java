@@ -40,15 +40,6 @@ public class ApartmentService {
         return List.of();
     }
 
-    // Lấy căn hộ theo trạng thái
-    public List<Apartment> getApartmentsByStatus(String status) {
-        return apartmentRepository.findByStatus(status);
-    }
-
-    // Lấy căn hộ theo tòa nhà
-    public List<Apartment> getApartmentsByBuilding(String building) {
-        return apartmentRepository.findByBuilding(building);
-    }
 
     // Tạo căn hộ mới
     public Apartment createApartment(Apartment apartment) {

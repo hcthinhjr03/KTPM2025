@@ -11,7 +11,6 @@ public class WaterServiceStatistics extends WaterService {
     private Double revenue;
     private Date fromDate;
     private Date toDate;
-    private Integer totalContracts;
     
     // Constructor mặc định
     public WaterServiceStatistics() {
