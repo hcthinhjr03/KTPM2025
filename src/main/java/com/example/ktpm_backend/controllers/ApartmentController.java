@@ -39,34 +39,4 @@ public class ApartmentController {
         return new ResponseEntity<>(apartments, HttpStatus.OK);
     }
 
-    // Tạo căn hộ mới
-    @PostMapping
-    public ResponseEntity<Apartment> createApartment(@RequestBody Apartment apartment) {
-        Apartment newApartment = apartmentService.createApartment(apartment);
-        return new ResponseEntity<>(newApartment, HttpStatus.CREATED);
-    }
-
-    // Cập nhật căn hộ
-    @PutMapping("/{id}")
-    public ResponseEntity<Apartment> updateApartment(
-            @PathVariable Integer id,
-            @RequestBody Apartment apartmentDetails) {
-        
-        Optional<Apartment> updatedApartment = apartmentService.updateApartment(id, apartmentDetails);
-        
-        return updatedApartment.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    // Xóa căn hộ
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteApartment(@PathVariable Integer id) {
-        boolean deleted = apartmentService.deleteApartment(id);
-        
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 }

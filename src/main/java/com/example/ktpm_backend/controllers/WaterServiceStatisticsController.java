@@ -21,7 +21,7 @@ public class WaterServiceStatisticsController {
     @Autowired
     private WaterServiceStatisticService waterServiceStatisticService;
 
-    // Get all water services with statistics
+    // thong ke toan bo
     @GetMapping
     public ResponseEntity<List<WaterServiceStatistics>> getAllWaterServiceStatistics(
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate,
@@ -31,7 +31,7 @@ public class WaterServiceStatisticsController {
         return new ResponseEntity<>(statisticsList, HttpStatus.OK);
     }
 
-    // Get statistics for a specific water service
+    // thong ke chi tiet
     @GetMapping("/{id}")
     public ResponseEntity<WaterServiceStatistics> getWaterServiceStatistics(
             @PathVariable Integer id,
@@ -45,7 +45,7 @@ public class WaterServiceStatisticsController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    // Get detailed bills for a specific water service
+    // lay danh sach bill 
     @GetMapping("/{id}/bills")
     public ResponseEntity<List<Bill>> getWaterServiceBills(
             @PathVariable Integer id,

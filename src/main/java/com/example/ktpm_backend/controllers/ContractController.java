@@ -92,34 +92,4 @@ public class ContractController {
         return new ResponseEntity<>(newContract, HttpStatus.CREATED);
     }
     
-    // Cập nhật hợp đồng
-    @PutMapping("/{id}")
-    public ResponseEntity<Contract> updateContract(
-            @PathVariable Integer id,
-            @RequestBody Contract contractDetails) {
-        
-        Optional<Contract> updatedContract = contractService.updateContract(id, contractDetails);
-        
-        return updatedContract.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    // Xóa hợp đồng
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteContract(@PathVariable Integer id) {
-        boolean deleted = contractService.deleteContract(id);
-        
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    // Lấy hợp đồng theo khách hàng
-    @GetMapping("/customer/{customerId}")
-    public ResponseEntity<List<Contract>> getContractsByCustomer(@PathVariable Integer customerId) {
-        List<Contract> contracts = contractService.getContractsByCustomer(customerId);
-        return new ResponseEntity<>(contracts, HttpStatus.OK);
-    }
 }

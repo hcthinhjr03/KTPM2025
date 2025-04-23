@@ -20,7 +20,7 @@ public class WaterServiceStatisticService {
     @Autowired
     private WaterServiceRepository waterServiceRepository;
 
-    // Get statistics for a specific water service
+    // thong ke chi tiet
     public Optional<WaterServiceStatistics> getWaterServiceStatistics(Integer id, Date fromDate, Date toDate) {
         Optional<WaterService> waterServiceOpt = waterServiceRepository.findById(id);
         
@@ -50,7 +50,7 @@ public class WaterServiceStatisticService {
         return Optional.empty();
     }
 
-    // Get all water services with statistics
+    // thong ke tat ca
     public List<WaterServiceStatistics> getAllWaterServiceStatistics(Date fromDate, Date toDate) {
         List<WaterService> waterServices = waterServiceRepository.findAll();
         List<WaterServiceStatistics> statisticsList = new ArrayList<>();
@@ -63,10 +63,8 @@ public class WaterServiceStatisticService {
         return statisticsList;
     }
     
-    // Helper method to calculate revenue for a water service in a given period
+    //tinh doanh thu
     private double calculateRevenue(WaterService waterService, Date fromDate, Date toDate) {
-        // Implement logic to calculate revenue from bills in the period
-        // This is a placeholder implementation
         if (waterService.getContracts() == null) {
             return 0.0;
         }
@@ -79,7 +77,7 @@ public class WaterServiceStatisticService {
     }
     
     
-    // Helper method to check if a date is within a range
+    // validate ngay 
     private boolean isDateInRange(Date date, Date fromDate, Date toDate) {
         boolean isAfterFromDate = fromDate == null || date == null || !date.before(fromDate);
         boolean isBeforeToDate = toDate == null || date == null || !date.after(toDate);
