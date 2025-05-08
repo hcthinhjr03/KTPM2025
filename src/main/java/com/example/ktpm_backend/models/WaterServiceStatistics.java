@@ -8,11 +8,11 @@ import java.util.Date;
 @Getter
 @Setter
 public class WaterServiceStatistics extends WaterService {
-    private Double revenue;
+    private Double revenueValue;      
+    private String revenueStrategy;   
     private Date fromDate;
     private Date toDate;
     
-    // Constructor mặc định
     public WaterServiceStatistics() {
         super();
     }

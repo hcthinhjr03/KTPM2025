@@ -16,14 +16,12 @@ public class WaterServiceController {
     @Autowired
     private WaterServiceService waterServiceService;
 
-    // Get all water services
     @GetMapping
     public ResponseEntity<List<WaterService>> getAllWaterServices() {
         List<WaterService> waterServices = waterServiceService.getAllWaterServices();
         return new ResponseEntity<>(waterServices, HttpStatus.OK);
     }
 
-    // Get water service by id
     @GetMapping("/{id}")
     public ResponseEntity<WaterService> getWaterServiceById(@PathVariable Integer id) {
         Optional<WaterService> waterService = waterServiceService.getWaterServiceById(id);
@@ -34,14 +32,12 @@ public class WaterServiceController {
         }
     }
 
-    // Create new water service
     @PostMapping
     public ResponseEntity<WaterService> createWaterService(@RequestBody WaterService waterService) {
         WaterService createdWaterService = waterServiceService.createWaterService(waterService);
         return new ResponseEntity<>(createdWaterService, HttpStatus.CREATED);
     }
 
-    // Update water service
     @PutMapping("/{id}")
     public ResponseEntity<WaterService> updateWaterService(
             @PathVariable Integer id,
@@ -56,7 +52,6 @@ public class WaterServiceController {
         }
     }
 
-    // Delete water service
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteWaterService(@PathVariable Integer id) {
         Optional<WaterService> waterService = waterServiceService.getWaterServiceById(id);

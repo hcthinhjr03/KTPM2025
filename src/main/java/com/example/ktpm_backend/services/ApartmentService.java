@@ -19,17 +19,14 @@ public class ApartmentService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    // Lấy tất cả căn hộ
     public List<Apartment> getAllApartments() {
         return apartmentRepository.findAll();
     }
 
-    // Lấy căn hộ theo ID
     public Optional<Apartment> getApartmentById(Integer id) {
         return apartmentRepository.findById(id);
     }
 
-    // Lấy căn hộ theo khách hàng
     public List<Apartment> getApartmentsByCustomer(Integer customerId) {
         Optional<Customer> customerOpt = customerRepository.findById(customerId);
         

@@ -21,31 +21,33 @@ public class WaterServiceStatisticsController {
     @Autowired
     private WaterServiceStatisticService waterServiceStatisticService;
 
-    // thong ke toan bo
     @GetMapping
     public ResponseEntity<List<WaterServiceStatistics>> getAllWaterServiceStatistics(
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate) {
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate,
+            @RequestParam(required = false, defaultValue = "total") String strategy) {
         
-        List<WaterServiceStatistics> statisticsList = waterServiceStatisticService.getAllWaterServiceStatistics(fromDate, toDate);
+        List<WaterServiceStatistics> statisticsList = 
+            waterServiceStatisticService.getAllWaterServiceStatistics(fromDate, toDate, strategy);
         return new ResponseEntity<>(statisticsList, HttpStatus.OK);
     }
 
-    // thong ke chi tiet
     @GetMapping("/{id}")
     public ResponseEntity<WaterServiceStatistics> getWaterServiceStatistics(
             @PathVariable Integer id,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate) {
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date toDate,
+            @RequestParam(required = false, defaultValue = "total") String strategy) {
         
-        Optional<WaterServiceStatistics> statistics = waterServiceStatisticService.getWaterServiceStatistics(id, fromDate, toDate);
+        Optional<WaterServiceStatistics> statistics = 
+            waterServiceStatisticService.getWaterServiceStatistics(id, fromDate, toDate, strategy);
         if (statistics.isPresent()) {
             return new ResponseEntity<>(statistics.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    // lay danh sach bill 
+    
     @GetMapping("/{id}/bills")
     public ResponseEntity<List<Bill>> getWaterServiceBills(
             @PathVariable Integer id,

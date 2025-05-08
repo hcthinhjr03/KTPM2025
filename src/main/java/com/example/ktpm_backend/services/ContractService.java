@@ -16,25 +16,19 @@ public class ContractService {
     @Autowired
     private ContractRepository contractRepository;
     
-
-    // Lấy tất cả hợp đồng
     public List<Contract> getAllContracts() {
         return contractRepository.findAll();
     }
 
-    // Lấy hợp đồng theo ID
     public Optional<Contract> getContractById(Integer id) {
         return contractRepository.findById(id);
     }
 
-    // Tạo hợp đồng mới
     public Contract createContract(Contract contract) {
-        // Nếu không có ngày ký, đặt ngày hiện tại
         if (contract.getSignDate() == null) {
             contract.setSignDate(new Date());
         }
         
-        // Nếu không có trạng thái, đặt mặc định là 'active'
         if (contract.getStatus() == null || contract.getStatus().isEmpty()) {
             contract.setStatus("active");
         }

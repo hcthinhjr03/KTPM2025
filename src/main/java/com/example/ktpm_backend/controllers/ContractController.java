@@ -33,14 +33,12 @@ public class ContractController {
     @Autowired
     private WaterServiceService waterServiceService;
 
-    // Lấy tất cả hợp đồng
     @GetMapping
     public ResponseEntity<List<Contract>> getAllContracts() {
         List<Contract> contracts = contractService.getAllContracts();
         return new ResponseEntity<>(contracts, HttpStatus.OK);
     }
 
-    // Lấy hợp đồng theo ID
     @GetMapping("/{id}")
     public ResponseEntity<Contract> getContractById(@PathVariable Integer id) {
         Optional<Contract> contract = contractService.getContractById(id);
@@ -48,23 +46,18 @@ public class ContractController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Tạo hợp đồng mới
     @PostMapping
     public ResponseEntity<Contract> createContract(@RequestBody Contract contract) {
-        // Kiểm tra thông tin liên quan
         if (contract.getCustomer() == null || contract.getCustomer().getCustomerId() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        
         if (contract.getApartment() == null || contract.getApartment().getApartmentId() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        
         if (contract.getWaterService() == null || contract.getWaterService().getServiceId() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        
-        // Lấy đối tượng đầy đủ từ database
+
         Optional<Customer> customerOpt = customerService.getCustomerById(contract.getCustomer().getCustomerId());
         Optional<Apartment> apartmentOpt = apartmentService.getApartmentById(contract.getApartment().getApartmentId());
         Optional<WaterService> waterServiceOpt = waterServiceService.getWaterServiceById(contract.getWaterService().getServiceId());
@@ -72,18 +65,15 @@ public class ContractController {
         if (!customerOpt.isPresent() || !apartmentOpt.isPresent() || !waterServiceOpt.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        
-        // Thiết lập thông tin đầy đủ
+    
         contract.setCustomer(customerOpt.get());
         contract.setApartment(apartmentOpt.get());
         contract.setWaterService(waterServiceOpt.get());
         
-        // Thiết lập ngày ký nếu chưa có
         if (contract.getSignDate() == null) {
             contract.setSignDate(new Date());
         }
-        
-        // Thiết lập trạng thái nếu chưa có
+
         if (contract.getStatus() == null || contract.getStatus().isEmpty()) {
             contract.setStatus("active");
         }

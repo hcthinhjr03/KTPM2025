@@ -17,14 +17,12 @@ public class ApartmentController {
     @Autowired
     private ApartmentService apartmentService;
 
-    // Lấy tất cả căn hộ
     @GetMapping
     public ResponseEntity<List<Apartment>> getAllApartments() {
         List<Apartment> apartments = apartmentService.getAllApartments();
         return new ResponseEntity<>(apartments, HttpStatus.OK);
     }
 
-    // Lấy căn hộ theo ID
     @GetMapping("/{id}")
     public ResponseEntity<Apartment> getApartmentById(@PathVariable Integer id) {
         Optional<Apartment> apartment = apartmentService.getApartmentById(id);
@@ -32,7 +30,6 @@ public class ApartmentController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Lấy căn hộ theo khách hàng
     @GetMapping("/customer/{customerId}")
     public ResponseEntity<List<Apartment>> getApartmentsByCustomer(@PathVariable Integer customerId) {
         List<Apartment> apartments = apartmentService.getApartmentsByCustomer(customerId);

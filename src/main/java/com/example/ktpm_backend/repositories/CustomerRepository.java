@@ -11,15 +11,11 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     
-    // Tìm khách hàng theo số CMND/CCCD
     Optional<Customer> findByIdentityCard(String identityCard);
-    
-    // Tìm khách hàng theo số điện thoại
+
     Optional<Customer> findByPhoneNumber(String phoneNumber);
-    
-    // Tìm khách hàng theo email
+
     Optional<Customer> findByEmail(String email);
-    
-    // Tìm khách hàng theo tên
+
     List<Customer> findByFullNameContaining(String fullName);
 }

@@ -13,35 +13,28 @@ public class WaterServiceService {
     @Autowired
     private WaterServiceRepository waterServiceRepository;
 
-    // Get all water services
     public List<WaterService> getAllWaterServices() {
         return waterServiceRepository.findAll();
     }
 
-    // Get water service by id
     public Optional<WaterService> getWaterServiceById(Integer id) {
         return waterServiceRepository.findById(id);
     }
 
-    // Create new water service
     public WaterService createWaterService(WaterService waterService) {
-        // Thiết lập mối quan hệ hai chiều giữa WaterService và PriceRate
         if (waterService.getPriceRates() != null) {
             waterService.getPriceRates().forEach(priceRate -> priceRate.setWaterService(waterService));
         }
         return waterServiceRepository.save(waterService);
     }
 
-    // Update water service
     public WaterService updateWaterService(WaterService waterService) {
-        // Thiết lập mối quan hệ hai chiều giữa WaterService và PriceRate
         if (waterService.getPriceRates() != null) {
             waterService.getPriceRates().forEach(priceRate -> priceRate.setWaterService(waterService));
         }
         return waterServiceRepository.save(waterService);
     }
 
-    // Delete water service
     public void deleteWaterService(Integer id) {
         waterServiceRepository.deleteById(id);
     }

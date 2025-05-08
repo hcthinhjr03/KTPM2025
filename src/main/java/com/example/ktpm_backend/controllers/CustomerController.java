@@ -17,14 +17,12 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    // Lấy tất cả khách hàng
     @GetMapping
     public ResponseEntity<List<Customer>> getAllCustomers() {
         List<Customer> customers = customerService.getAllCustomers();
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    // Lấy khách hàng theo ID
     @GetMapping("/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Integer id) {
         Optional<Customer> customer = customerService.getCustomerById(id);
@@ -32,7 +30,6 @@ public class CustomerController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Tìm khách hàng theo CMND/CCCD
     @GetMapping("/search/identity-card")
     public ResponseEntity<Customer> findByIdentityCard(@RequestParam String identityCard) {
         Optional<Customer> customer = customerService.findByIdentityCard(identityCard);
@@ -40,7 +37,6 @@ public class CustomerController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Tìm khách hàng theo số điện thoại
     @GetMapping("/search/phone")
     public ResponseEntity<Customer> findByPhoneNumber(@RequestParam String phoneNumber) {
         Optional<Customer> customer = customerService.findByPhoneNumber(phoneNumber);
@@ -48,7 +44,6 @@ public class CustomerController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Tìm khách hàng theo email
     @GetMapping("/search/email")
     public ResponseEntity<Customer> findByEmail(@RequestParam String email) {
         Optional<Customer> customer = customerService.findByEmail(email);
@@ -56,7 +51,6 @@ public class CustomerController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Tìm khách hàng theo tên
     @GetMapping("/search/name")
     public ResponseEntity<List<Customer>> searchByName(@RequestParam String fullName) {
         List<Customer> customers = customerService.searchByName(fullName);
