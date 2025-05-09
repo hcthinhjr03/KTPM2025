@@ -25,6 +25,8 @@ public class WaterReading {
     @Temporal(TemporalType.DATE)
     private Date readingDate;
     
+    // Đánh dấu trường này là không insertable/updatable vì nó là STORED GENERATED column
+    @Column(name = "consumption", insertable = false, updatable = false)
     private Double consumption;
     
     @ManyToOne

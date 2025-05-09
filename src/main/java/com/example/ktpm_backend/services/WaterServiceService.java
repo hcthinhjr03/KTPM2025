@@ -42,7 +42,6 @@ public class WaterServiceService {
     public WaterService updateWaterService(WaterService waterService) {
         Integer serviceId = waterService.getServiceId();
         
-        // Lấy đối tượng WaterService hiện tại từ database
         Optional<WaterService> existingWaterServiceOpt = waterServiceRepository.findById(serviceId);
         
         if (!existingWaterServiceOpt.isPresent()) {

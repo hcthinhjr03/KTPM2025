@@ -41,7 +41,6 @@ public class WaterServiceStatisticService {
             statistics.setDescription(waterService.getDescription());
             statistics.setUnit(waterService.getUnit());
             statistics.setPriceRates(waterService.getPriceRates());
-
             statistics.setFromDate(fromDate);
             statistics.setToDate(toDate);
             statistics.setRevenueStrategy(revenueStrategy);
